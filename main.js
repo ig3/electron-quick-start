@@ -1,6 +1,11 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 const path = require('path')
+const menu = require('./menu');
+
+// Prevent 
+// [31957:0128/214623.638482:ERROR:buffer_manager.cc(488)] [.DisplayCompositor]GL ERROR :GL_INVALID_OPERATION : glBufferData: <- error from previous GL command
+process.stderr;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -15,6 +20,8 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   })
+
+  Menu.setApplicationMenu(menu(mainWindow));
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
